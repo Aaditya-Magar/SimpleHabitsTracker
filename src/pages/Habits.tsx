@@ -16,7 +16,11 @@ export default function HabitsPage() {
   const [logs, setLogs] = useState<Record<string, HabitLog>>({});
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+<<<<<<< HEAD
   const [editing, setEditing] = useState<{ id: string; name: string } | null>(null);
+=======
+  const [editingHabit, setEditingHabit] = useState<Habit | null>(null);
+>>>>>>> 1e7f4f0 (Final Commit)
 
   const today = new Date();
   const days = useMemo(() => {
@@ -52,6 +56,25 @@ export default function HabitsPage() {
     }
   }
 
+<<<<<<< HEAD
+=======
+  async function handleSaveHabit(data: { name: string; description: string; icon: string }) {
+    if (!editingHabit) {
+      await handleCreate(data);
+      return;
+    }
+    if (!rateLimit(`habit:update:${editingHabit.id}`, 500)) return;
+    try {
+      await habitsRepo.update(editingHabit.id, data);
+      setEditingHabit(null);
+      refresh();
+      toast.success(`${data.icon} ${data.name} updated`);
+    } catch (e) {
+      toast.error(e instanceof SafeError ? e.userMessage : "Could not update habit");
+    }
+  }
+
+>>>>>>> 1e7f4f0 (Final Commit)
   async function handleToggle(habitId: string, day: number) {
     if (!rateLimit(`habit:toggle:${habitId}:${day}`, 150)) return;
     try {
@@ -75,6 +98,7 @@ export default function HabitsPage() {
     }
   }
 
+<<<<<<< HEAD
   async function handleRename() {
     if (!editing) return;
     const n = editing.name.trim();
@@ -88,6 +112,8 @@ export default function HabitsPage() {
     }
   }
 
+=======
+>>>>>>> 1e7f4f0 (Final Commit)
   // ---- Stats for header
   const todayStr = format(today, "yyyy-MM-dd");
   const monthDates = days.map((d) => dateStr(d));
@@ -104,7 +130,19 @@ export default function HabitsPage() {
 
   return (
     <div className="space-y-6">
+<<<<<<< HEAD
       <HabitDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onCreate={handleCreate} />
+=======
+      <HabitDialog
+        open={dialogOpen}
+        habit={editingHabit}
+        onClose={() => {
+          setDialogOpen(false);
+          setEditingHabit(null);
+        }}
+        onSubmit={handleSaveHabit}
+      />
+>>>>>>> 1e7f4f0 (Final Commit)
 
       {/* Hero */}
       <motion.section
@@ -183,7 +221,14 @@ export default function HabitsPage() {
       {/* Add */}
       <div className="flex justify-end">
         <button
+<<<<<<< HEAD
           onClick={() => setDialogOpen(true)}
+=======
+          onClick={() => {
+            setEditingHabit(null);
+            setDialogOpen(true);
+          }}
+>>>>>>> 1e7f4f0 (Final Commit)
           className="group flex items-center gap-2 rounded-2xl gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground glow transition-all hover:scale-[1.03]"
         >
           <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" /> New Habit
@@ -243,6 +288,7 @@ export default function HabitsPage() {
                       className="group border-b border-border/40 last:border-0 hover:bg-primary/5"
                     >
                       <td className="sticky left-0 z-10 bg-card/90 px-4 py-2.5 backdrop-blur group-hover:bg-primary/[0.04]">
+<<<<<<< HEAD
                         {editing?.id === h.id ? (
                           <input
                             autoFocus value={editing.name}
@@ -263,6 +309,25 @@ export default function HabitsPage() {
                             </button>
                           </div>
                         )}
+=======
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-lg">{h.icon || "✨"}</span>
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate font-medium">{h.name}</div>
+                            {h.description && <div className="truncate text-[11px] text-muted-foreground">{h.description}</div>}
+                          </div>
+                          <button
+                            onClick={() => {
+                              setEditingHabit(h);
+                              setDialogOpen(true);
+                            }}
+                            className="opacity-0 transition-opacity group-hover:opacity-100"
+                            aria-label="Edit habit"
+                          >
+                            <Pencil className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
+                          </button>
+                        </div>
+>>>>>>> 1e7f4f0 (Final Commit)
                       </td>
                       {days.map((d) => {
                         const ds = dateStr(d);
