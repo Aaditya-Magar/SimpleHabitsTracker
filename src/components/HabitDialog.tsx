@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-=======
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import type { Habit } from "@/lib/db";
->>>>>>> 1e7f4f0 (Final Commit)
 
 const ICONS = [
   "🏃", "📚", "🧘", "💧", "😴", "💻", "🤝", "🎵", "🏋️",
@@ -19,20 +13,6 @@ const ICONS = [
 interface Props {
   open: boolean;
   onClose: () => void;
-<<<<<<< HEAD
-  onCreate: (data: { name: string; description: string; icon: string }) => void;
-}
-
-export default function HabitDialog({ open, onClose, onCreate }: Props) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [icon, setIcon] = useState("🏃");
-
-  function submit() {
-    if (!name.trim()) return;
-    onCreate({ name: name.trim(), description: description.trim(), icon });
-    setName(""); setDescription(""); setIcon("🏃");
-=======
   onSubmit: (data: { name: string; description: string; icon: string }) => void;
   habit?: Habit | null;
 }
@@ -53,7 +33,6 @@ export default function HabitDialog({ open, onClose, onSubmit, habit }: Props) {
   function submit() {
     if (!name.trim()) return;
     onSubmit({ name: name.trim(), description: description.trim(), icon });
->>>>>>> 1e7f4f0 (Final Commit)
     onClose();
   }
 
@@ -77,11 +56,7 @@ export default function HabitDialog({ open, onClose, onSubmit, habit }: Props) {
             <div className="pointer-events-none absolute inset-x-0 -top-32 h-64" style={{ background: "var(--gradient-glow)" }} />
 
             <div className="relative flex items-center justify-between">
-<<<<<<< HEAD
-              <h3 className="font-display text-xl font-bold">Create New Habit</h3>
-=======
               <h3 className="font-display text-xl font-bold">{isEditing ? "Edit Habit" : "Create New Habit"}</h3>
->>>>>>> 1e7f4f0 (Final Commit)
               <button onClick={onClose} className="rounded-lg p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground">
                 <X className="h-4 w-4" />
               </button>
@@ -116,10 +91,7 @@ export default function HabitDialog({ open, onClose, onSubmit, habit }: Props) {
                 <div className="grid max-h-36 grid-cols-9 gap-1.5 overflow-y-auto rounded-xl border border-border/60 bg-background/40 p-2">
                   {ICONS.map((i) => (
                     <button
-<<<<<<< HEAD
-=======
                       type="button"
->>>>>>> 1e7f4f0 (Final Commit)
                       key={i}
                       onClick={() => setIcon(i)}
                       className={`grid h-9 w-9 place-items-center rounded-lg text-lg transition-all hover:scale-110 ${
@@ -142,11 +114,7 @@ export default function HabitDialog({ open, onClose, onSubmit, habit }: Props) {
                 disabled={!name.trim()}
                 className="rounded-xl gradient-primary px-5 py-2 text-sm font-semibold text-primary-foreground glow transition-all hover:scale-[1.02] disabled:opacity-50"
               >
-<<<<<<< HEAD
-                Create Habit
-=======
                 {isEditing ? "Save Changes" : "Create Habit"}
->>>>>>> 1e7f4f0 (Final Commit)
               </button>
             </div>
           </motion.div>
